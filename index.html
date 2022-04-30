@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+		<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+
+		<script>
+            AFRAME.registerComponent('mytarget', {
+                init: function () {
+
+                    this.el.addEventListener('targetFound', event => {
+                        console.log("target found");
+                        const thumbnail = document.querySelector("#thumbnail");
+                        const video = document.querySelector("#vid-webm");
+                        document.querySelector("#video").setAttribute("src", "#vid-webm");
+                        thumbnail.addEventListener('click', () => {
+                            if (thumbnail.getAttribute('visible')) {
+                                thumbnail.setAttribute("visible", false);
+                                video.play();
+                            } else {
+                                thumbnail.setAttribute("visible", true);
+                                video.pause();
+                            }
+                        });
+                    });
+
+                    this.el.addEventListener('targetLost', event => {
+                        console.log("target lost");
+                        document.querySelector("#thumbnail").setAttribute("visible", true);
+                        const video = document.querySelector("#vid-webm");
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+                }
+            });
+		</script>
+	</head>
+	<body>
+		<a-scene mindar-image="imageTargetSrc: /targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+			<a-assets timeout="10000">
+				<img id="thumb" src="./thumb.jpg"/>
+				<video id="vid-webm" autoplay="false" loop="true" src="./video.webm"></video>
+			</a-assets>
+
+			<a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable">
+			</a-camera>
+
+			<a-entity id="mytarget" mytarget mindar-image-target="targetIndex: 0">
+				<a-video id="video" webkit-playsinline playsinline width="1" height="0.5625" position="0 0 0"></a-video>
+				<a-image id="thumbnail" class="clickable" src="#thumb" alpha-test="0.5" position="0 0 0" height="0.5625" width="1"></a-image>
+			</a-entity>
+		</a-scene>
+	</body>
+</html>
