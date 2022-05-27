@@ -7,7 +7,7 @@
 		<script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
 
 		<script>
-			for (var i = 0; i < 2; i++) {
+			for (var i = 0; i < 5; i++) {
 				AFRAME.registerComponent(`entity${i}`, {
                 	init: function () {
                 		let index = this.el.getAttribute('index');
@@ -31,8 +31,11 @@
 	<body>
 		<a-scene mindar-image="imageTargetSrc: /Web-AR/targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
 			<a-assets timeout="10000">
-				<video id="vid0" autoplay="false" loop="true" src="/Web-AR/0.mp4"></video>
-				<video id="vid1" autoplay="false" loop="true" src="/Web-AR/1.mp4"></video>
+				<video id="vid0" autoplay="false" loop="true" src="/Web-AR/media/0.mp4"></video>
+				<video id="vid1" autoplay="false" loop="true" src="/Web-AR/media/1.mp4"></video>
+				<video id="vid2" autoplay="false" loop="true" src="/Web-AR/media/2.mp4"></video>
+				<video id="vid3" autoplay="false" loop="true" src="/Web-AR/media/3.mp4"></video>
+				<video id="vid4" autoplay="false" loop="true" src="/Web-AR/media/4.mp4"></video>
 			</a-assets>
 
 			<a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
@@ -42,6 +45,15 @@
 			</a-entity>
 			<a-entity id="entity1" index="1" entity1 mindar-image-target="targetIndex: 1">
 				<a-video id="video1" webkit-playsinline playsinline width="1" height="0.708" position="0 0 0"></a-video>
+			</a-entity>
+			<a-entity id="entity2" index="2" entity2 mindar-image-target="targetIndex: 2">
+				<a-video id="video2" webkit-playsinline playsinline width="1" height="0.708" position="0 0 0"></a-video>
+			</a-entity>
+			<a-entity id="entity3" index="3" entity3 mindar-image-target="targetIndex: 3">
+				<a-video id="video3" webkit-playsinline playsinline width="1" height="0.708" position="0 0 0"></a-video>
+			</a-entity>
+			<a-entity id="entity4" index="4" entity4 mindar-image-target="targetIndex: 4">
+				<a-video id="video4" webkit-playsinline playsinline width="1" height="0.708" position="0 0 0"></a-video>
 			</a-entity>
 		</a-scene>
 	</body>
